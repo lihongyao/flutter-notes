@@ -25,118 +25,35 @@
 
 工欲善其事必先利其器，本节首先会分别介绍一下在Windows和macOS下Flutter SDK的安装，然后再介绍一下配IDE和模拟器的使用。
 
-## windows
+> 提示：示例主要基于 macOS 演示
 
-### 使用镜像
+## 1. 下载SDK
 
-由于在国内访问Flutter有时可能会受到限制，Flutter官方为中国开发者搭建了临时镜像，大家可以将如下环境变量加入到用户环境变量中：
+1）点击前往 [下载Flutter SDK >>](https://docs.flutter.cn/release/archive)
 
-```json
-{
-    PUB_HOSTED_URL:"https://pub.flutter-io.cn"
-  	FLUTTER_STORAGE_BASE_UR:"https://storage.flutter-io.cn"
-}
+> 提示：切换至 `macOS` 项选择对应的版本。
+
+2）将下载下来的SDK文件解压缩至指定目录（任意位置）
+
+```bash
+unzip ~/Downloads/flutter_macos_arm64_3.24.2-stable.zip -d ~/development/
 ```
 
-设置步骤：`开始` → `搜索 env` → `编辑系统环境变量` → `环境变量` → `新建（用户变量）` → `填写变量名和变量值`  → `确定保存`
-
-**注意：** 此镜像为临时镜像，并不能保证一直可用，读者可以参考 [这里 >>](https://docs.flutter.dev/community/china#configuring-flutter-to-use-a-mirror-site) 以获得有关镜像服务器的最新动态
-
-### 下载配置Flutter SDK
-
-**① 下载SDK**
-
-[Flutter SDK >>](https://flutter.cn/docs/development/tools/sdk/releases?tab=windows)：
-
-选择 `Stable channel (Windows)` 中的最新版本。
-
-> 提示：要想正常获取安装包列表或下载安装包，可能需要梯子，读者也可以去Flutter github项目下去 [下载安装包 >>](https://github.com/flutter/flutter/tags)
-
-**② 解压**
-
-接下来把下载好的 Flutter SDK 随便解压到你想安装SDK 的目录，（如：`E:\flutter`）
-
-> 注意：**不要**将 `flutter` 安装到需要一些高权限的路径如：`C:\Program Files\`
-
-**③ 配置环境变量**
-
-将刚解压的 Flutter SDK 中的 `/bin` 目录加入系统变量 `Path` 字段中，比如我这里是：`E:\flutter\bin`
-
-**④ 验证**
-
-`Win + R` 打开 CMD，输入指令 `flutter --version`，如果能打印出相关信息则表示 `Flutter SDK` 配置成功。
-
-### 安装 Android Studio
-
-下载并安装 [Android Studio >>](https://developer.android.com/studio) 
-
-> 提示：下载好之后，双击 `.exe` 文件，根据 Android Studio安装向导，一路执行即可，这将安装最新的Android SDK。Android SDK平台工具和Android SDK构建工具，是Flutter为Android开发时所必需的。
-
-IDE 安装好之后顺便安装一下 `SDK Command-line Tools`：
-
-`Customize` -> `All settings...` -> `Appearance & Behavior` -> `System Settings` -> `Android SDK` -> `SDK Tools` -> 查看 `Android SDK Command-line Tools(latest)` 
-
-### 环境检测
-
-终端输入 `flutter doctor` 命令检测环境是否配置成功。
-
-```shell
-$ flutter doctor
-Doctor summary (to see all details, run flutter doctor -v):
-[√] Flutter (Channel stable, 2.5.3, on Microsoft Windows [Version 10.0.19042.1288], locale zh-CN)
-[!] Android toolchain - develop for Android devices (Android SDK version 31.0.0)
-    X cmdline-tools component is missing
-      Run `path/to/sdkmanager --install "cmdline-tools;latest"`
-      See https://developer.android.com/studio/command-line for more details.
-    X Android license status unknown.
-      Run `flutter doctor --android-licenses` to accept the SDK licenses.
-      See https://flutter.dev/docs/get-started/install/windows#android-setup for more details.
-[√] Chrome - develop for the web
-[√] Android Studio (version 2020.3)
-[√] Connected device (2 available)
-
-! Doctor found issues in 1 category.
-```
-
-根据提示，解决问题即可！然后再次输入指令检测环境
-
-```shell
-$ flutter doctor
-Doctor summary (to see all details, run flutter doctor -v):
-[√] Flutter (Channel stable, 2.5.3, on Microsoft Windows [Version 10.0.19042.1288], locale zh-CN)
-[√] Android toolchain - develop for Android devices (Android SDK version 31.0.0)
-[√] Chrome - develop for the web
-[√] Android Studio (version 2020.3)
-[√] Connected device (2 available)
-
-• No issues found!
-```
-
-## macOS
-
-### 下载SDK
-
-1）点击前往 [下载Flutter SDK >>](https://flutter.cn/docs/development/tools/sdk/releases)
-
-> **！提示：**切换至 `macOS` 项选择对应的版本。
-
-2）将下载下来的SDK文件解压缩至指定目录（任意位置），参照： *`/usr/local/flutter `*  
-
-### 配置环境变量
+## 2. 配置环境变量
 
 在终端输入 `vi ~/.bash_profile`，按 `i` 进入编辑模式，添加如下代码：
 
 ```ini
-# 国内镜像
-export PUB_HOSTED_URL=https://pub.flutter-io.cn
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-# 环境变量
-export FLUTTER=/usr/local/flutter/bin
-# 导出
+# Flutter_国内镜像 
+export PUB_HOSTED_URL="https://pub.flutter-io.cn"
+export FLUTTER_STORAGE_BASE_URL="https://storage.flutter-io.cn"
+# Flutter_环境变量
+export FLUTTER="$HOME/development/flutter/bin"
+
 export PATH=$PATH:$FLUTTER
 ```
 
-刷新配置文件：
+按住 `esc`，输入 `wq!` 保存并退出，然后刷新配置文件：
 
 ```shell
 $ source ~/.bash_profile 
@@ -145,58 +62,43 @@ $ source ~/.bash_profile
 验证结果：
 
 ```shell
-$ flutter --version
-Flutter 3.3.5 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision d9111f6402 (4 days ago) • 2022-10-19 12:27:13 -0700
-Engine • revision 3ad69d7be3
-Tools • Dart 2.18.2 • DevTools 2.15.0
+flutter --version
+Flutter 3.24.2 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 4cf269e36d (5 days ago) • 2024-09-03 14:30:00 -0700
+Engine • revision a6bd3f1de1
+Tools • Dart 3.5.2 • DevTools 2.37.2
 ```
 
-### 检查环境
+## 3. 配置Android Studio
 
-运行以下命令以查看是否需要安装任何依赖项才能完成设置。
-
-```shell
-$ flutter doctor
-```
-
-此命令检查您的环境并向终端窗口显示报告。
-
-```shell
-Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, v1.17.5, on Mac OS X 10.15.3 19D76, locale
-    zh-Hans-CN)
-[!] Android toolchain - develop for Android devices (Android SDK version 28.0.3)
-    ✗ Android license status unknown.
-      Try re-installing or updating your Android SDK Manager.
-      See https://developer.android.com/studio/#downloads or visit visit
-      https://flutter.dev/docs/get-started/install/macos#android-setup for
-      detailed instructions.
- 
-[✓] Xcode - develop for iOS and macOS (Xcode 11.5)
-[!] Android Studio (version 3.6)
-    ✗ Flutter plugin not installed; this adds Flutter specific functionality.
-    ✗ Dart plugin not installed; this adds Dart specific functionality.
-[!] VS Code (version 1.46.1)
-    ✗ Flutter extension not installed; install from
-      https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
-[!] Connected device
-    ! No devices available
-
-! Doctor found issues in 4 categories.
-```
-
-按照检测结果的说明，如果有 `[!]` 或者 `✗`  标志，表示本行检测不通过，需要做一些设置或者安装一些软件。
-
-### 1. 下载安装  Android Studio
-
-```
-✗ Android license status unknown.
-```
+### 3.1. 安装
 
 下载地址：https://developer.android.com/studio/#downloads
 
-接下来在配置文件里添加如下代码：
+> 提示：首次安装 Android studio 提示 *Android Studio First Run \ Unable to access Android SDK add-on list* 解决方案：
+>
+> 1. 选择 「Setup proxy」
+> 2. 选择 「Manual proxy configuration」- 「HTTP」
+>    - Host name：**mirrors.neusoft.edu.cn**
+>    - Port number：**80**
+> 3. 选择「Check connection」
+> 4. 提示 *Connection successful* 配置成功
+
+### 3.2. 安装 Android Studio 必要组件
+
+@See https://docs.flutter.cn/get-started/install/macos/mobile-android#configure-android-development
+
+首选项 — Preferences... — Languages & Frameworks — Android SDK
+
+确保安装如下组件：
+
+- Android SDK Platform, API 35.0.1
+- Android SDK Command-line Tools
+- Android SDK Build-Tools
+- Android SDK Platform-Tools
+- Android Emulator
+
+接下来在配置文件里添加如下代码：（可删除的内容）
 
 ```ini
 # android
@@ -207,38 +109,73 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/emulator
 ```
 
-### 2. 安装插件
+### 3.3. 安装插件
 
-```
-✗ Flutter plugin not installed; this adds Flutter specific functionality.
-✗ Dart plugin not installed; this adds Dart specific functionality.
-```
+快捷键  `cmd + ,`  打开设置，选择 `Plugins`，搜索安装 `Flutter` 插件。
 
-打开 `android studio`，找到个人偏好设置，快捷键 `cmd + ,` ，选中 `Plugins` 项，输入 `flutter`，点击 `install`。
-
-配置 Android，一路按 `y` 即可：
+签署许可证协议
 
 ```shell
-$ flutter doctor --android-licenses
+flutter doctor --android-licenses
 ```
 
-此时，安卓环境已经OK。
+输入项一路按 `y` 即可
 
-```
-[✓] Android toolchain - develop for Android devices (Android SDK version 28.0.3)
+## 4. 配置 Xcode
+
+1）在 appStore 搜索 Xcode 安装即可
+
+2）使用以下命令来将开发者目录指向你完整的 Xcode 安装路径（通常在 /Applications/Xcode.app）：
+
+```bash
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 ```
 
-### 3.  VS Code
+3）签署 Xcode 许可证协议
 
+```bash
+sudo xcodebuild -license
 ```
- VS Code (version 1.46.1)
-    ✗ Flutter extension not installed; install from
-      https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
+
+4）安装 cocoapods
+
+```bash
+brew install cocoapods
 ```
+
+## 5. 配置 VSCode
 
 下载安装：https://code.visualstudio.com/
 
 打开VSCode，快捷键 `CMD` + `SHIFT` + `X` 打开拓展程序，搜索并安装 Dart/Flutter 插件。然后再次执行 `flutter doctor` 指令，配置完毕！
+
+## 6. 检查环境
+
+运行以下命令以查看是否需要安装任何依赖项才能完成设置。
+
+```shell
+$ flutter doctor
+```
+
+此命令检查您的环境并向终端窗口显示报告。
+
+```shell
+flutter doctor
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.24.2, on macOS 14.6.1 23G93 darwin-arm64, locale
+    zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 35.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2024.1)
+[✓] VS Code (version 1.93.0)
+[✓] Connected device (3 available)
+[✓] Network resources
+
+• No issues found!
+```
+
+按照检测结果的说明，如果有 `[!]` 或者 `✗`  标志，表示本行检测不通过，需要做一些设置或者安装一些软件。
 
 # IDEs
 
@@ -360,3 +297,46 @@ nodejs
 └── pubspec.yaml（项目依赖配置，相当于npm中的 package.json）
 ```
 
+# 创建项目
+
+1、在终端输入如下指令创建项目
+
+```shell
+$ flutter create --empty <project-name>
+$ cd <project-name> && code .
+$ flutter run
+```
+
+> 提示：
+>
+> - `--empty` 标记会导致无法在 `lib/main.dart` 文件中创建标准计数器应用。
+> - 如果是正式开发，建议使用 Android studio 创建项目，然后再使用 vscode 来开发。
+
+2、目录解构如下
+
+```
+<project-name>
+├── android （android平台相关代码）
+├── assets （静态资源）
+│   ├── images
+│   └── fonts
+├── ios （ios平台相关代码）
+├── lib（flutter 相关代码，我们编写的代码就在这个文件夹）
+│   ├── entities（实体）
+│   ├── generated（生成的静态资源）
+│   ├── model（数据层）
+│   ├── view（视图层）
+│   ├── viewmodel
+│   ├── routes（路由映射）
+│   ├── utils（工具类）
+│   │   ├── constants.dart
+│   │   └── http.dart 
+│   ├── widgets（全局组件）
+│   ├── app.dart（根组件）
+│   └── main.dart（入口文件：相当于index.js）
+├── analysis_options.yaml （分析 dart 语法的文件，老项目升级新项目有报错可删除）
+├── pubspec.lock（项目依赖锁定信息）
+└── pubspec.yaml（项目依赖配置）
+```
+
+3、
