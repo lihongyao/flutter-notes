@@ -1,6 +1,6 @@
 # 概述
 
-- Flutter 是 Google 开发的一款开源的、免费的，基于 **Dart 语言** 的UI框架，可以快速在 iOS 和 Android 上构建高质量的原生应用
+- [Flutter ↪](https://flutter.dev/) 是 Google 开发的一款开源的、免费的，基于 **Dart 语言** 的UI框架，可以快速在 iOS 和 Android 上构建高质量的原生应用
 
   它最大的特点就是 **跨平台** 和 **高性能**。
 
@@ -8,40 +8,33 @@
 
 - 资源网站
 
-  - 官网：https://flutter.dev/
-
-  - GitHub：https://github.com/flutter/flutter
-  
   - 中文网
-  
-    - https://flutterchina.club/
 
+    - https://flutterchina.club/
+  
     - https://flutter.cn/
+  
 - 工具包：https://pub.flutter-io.cn/
 
 > 提示：如果没有任何 Dart 语言的基础，不建议直接学习 Flutter。建议先学习Dart语言的基本语法。
 
 # 环境配置
 
-工欲善其事必先利其器，本节首先会分别介绍一下在Windows和macOS下Flutter SDK的安装，然后再介绍一下配IDE和模拟器的使用。
-
-> 提示：示例主要基于 macOS 演示
+工欲善其事必先利其器，本节首先会介绍一下在 Vscode 下 Flutter SDK的安装，然后再介绍一下配IDE和模拟器的使用。
 
 ## 1. 下载SDK
 
-1）点击前往 [下载Flutter SDK >>](https://docs.flutter.cn/release/archive)
+1）点击前往 [下载Flutter SDK ↪](https://docs.flutter.cn/install/archive)，M芯片选择 arm64 架构
 
-> 提示：切换至 `macOS` 项选择对应的版本。
-
-2）将下载下来的SDK文件解压缩至指定目录（任意位置）
+2）将下载下来的SDK文件解压缩至指定目录（建议用户目录下新建 `development`）
 
 ```bash
-unzip ~/Downloads/flutter_macos_arm64_3.24.2-stable.zip -d ~/development/
+$ unzip ~/Downloads/flutter_macos_arm64_3.35.1-stable.zip -d ~/development/
 ```
 
 ## 2. 配置环境变量
 
-在终端输入 `vi ~/.bash_profile`，按 `i` 进入编辑模式，添加如下代码：
+在终端输入 `vi ~/.bash_profile`，按 <kbd>i</kbd> 进入编辑模式，添加如下代码：
 
 ```ini
 # Flutter_国内镜像 
@@ -53,7 +46,7 @@ export FLUTTER="$HOME/development/flutter/bin"
 export PATH=$PATH:$FLUTTER
 ```
 
-按住 `esc`，输入 `wq!` 保存并退出，然后刷新配置文件：
+按住 <kbd>Esc</kbd>，输入 <kbd>wq!</kbd> 保存并退出，然后刷新配置文件：
 
 ```shell
 $ source ~/.bash_profile 
@@ -62,11 +55,12 @@ $ source ~/.bash_profile
 验证结果：
 
 ```shell
-flutter --version
-Flutter 3.24.2 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision 4cf269e36d (5 days ago) • 2024-09-03 14:30:00 -0700
-Engine • revision a6bd3f1de1
-Tools • Dart 3.5.2 • DevTools 2.37.2
+$ flutter --version
+Flutter 3.35.1 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 20f8274939 (2 天前) • 2025-08-14 10:53:09 -0700
+Engine • hash 6cd51c08a88e7bbe848a762c20ad3ecb8b063c0e (revision 1e9a811bf8) (3
+days ago) • 2025-08-13 23:35:25.000Z
+Tools • Dart 3.9.0 • DevTools 2.48.0
 ```
 
 ## 3. 配置Android Studio
@@ -88,7 +82,7 @@ Tools • Dart 3.5.2 • DevTools 2.37.2
 
 @See https://docs.flutter.cn/get-started/install/macos/mobile-android#configure-android-development
 
-首选项 — Preferences... — Languages & Frameworks — Android SDK
+操作步骤：⚙️ Settings — Languages & Frameworks — Android SDK
 
 确保安装如下组件：
 
@@ -179,7 +173,7 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 # IDEs
 
-## IDE：Android Studio（推荐）
+## IDE：Android Studio
 
 ### 1. 安装插件
 
@@ -209,7 +203,7 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 1）定位到 `Android Studio` 工具栏
 
-![](./IMGS/android_tools.png)
+
 
 2）在 `Target selector` 中，选择一个运行该应用的 Android 设备，如果没有列出可用，请选择 `AVD Manager` 并创建一个（参照后文：创建模拟器）。
 
@@ -237,7 +231,7 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 > 提示：上图显示代表创建完成。
 
-## IDE：Visual Studio Code
+## IDE：Visual Studio Code（推荐）
 
 ### 1. 安装IDE
 
@@ -253,6 +247,25 @@ Doctor summary (to see all details, run flutter doctor -v):
 > **！提示**：安装 `Flutter` 插件时会自动安装 `Dart` 插件。
 
 ### 3. 创建项目
+
+## 2. 安装插件
+
+快捷键： <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>
+
+装插件：`flutter`
+
+> **！提示**：安装 `Flutter` 插件时会自动安装 `Dart` 插件。
+
+## 3. 安装 SDK
+
+1. 要打开**命令面板** ，请按 <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+
+2. 在**命令面板**中，键入 `flutter`
+3. 选择 `Flutter：New Project`
+4. VS Code 会提示你在计算机上找到 Flutter SDK
+   - 如果你安装了 Flutter SDK，请单击 **Locate SD**
+   - 如果没有安装 Flutter SDK，请单击**下载 SDK**（推荐安装位置：`~/development`，如果没有这个目录可以手动创建）
+5. 当提示“ **哪个 Flutter 模板？”** 时，请忽略它。按 <kbd>Esc</kbd> 。您可以在检查开发设置后创建测试项目。
 
 步骤：`启动 Visual Studio Code ` → `CMD(CTR) + SHIFT + P`  → `Flutter:New Project` → `Application`  → `Select Folder` → `Enter Project Name`
 
