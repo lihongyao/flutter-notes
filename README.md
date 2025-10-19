@@ -4,16 +4,10 @@
 
   它最大的特点就是 **跨平台** 和 **高性能**。
 
-- Dart 是由 Google，在2011年开发的计算机编程语言，它可以被用于 Web、服务器、移动应用和物联网等多个领域。号称要取代 js。
+- Dart 是由 Google，在2011年开发的计算机编程语言，它可以被用于 Web、服务器、移动应用和物联网等多个领域。
 
-- 资源网站
+- 中文网：https://flutter.cn/
 
-  - 中文网
-
-    - https://flutterchina.club/
-  
-    - https://flutter.cn/
-  
 - 工具包：https://pub.flutter-io.cn/
 
 > 提示：如果没有任何 Dart 语言的基础，不建议直接学习 Flutter。建议先学习Dart语言的基本语法。
@@ -24,6 +18,8 @@
 
 ## 1. 下载SDK
 
+### 手动安装
+
 1）点击前往 [下载Flutter SDK ↪](https://docs.flutter.cn/install/archive)，M芯片选择 arm64 架构
 
 2）将下载下来的SDK文件解压缩至指定目录（建议用户目录下新建 `development`）
@@ -31,6 +27,48 @@
 ```bash
 $ unzip ~/Downloads/flutter_macos_arm64_3.35.1-stable.zip -d ~/development/
 ```
+
+### 使用 VS Code 安装（推荐）
+
+1. 打开命令面板 ，请按 <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+
+2. 在命令面板中，键入 **flutter**
+
+3. 选择 **Flutter：New Project**
+
+4. VS Code 会提示你在计算机上找到 Flutter SDK
+
+   - 如果你安装了 Flutter SDK，请单击 **Locate SD**
+   - 如果没有安装 Flutter SDK，请单击**下载 SDK**
+
+5. 当显示 **Select Folder for Flutter SDK**  对话框时，选择要安装 Flutter 的位置（推荐安装位置：`~/development`，如果没有这个目录可以手动创建）
+
+6. 单击 **clone Flutter**
+
+   下载 Flutter 时，VS Code 会显示此弹出通知：
+
+   ```
+   Downloading the Flutter SDK. This may take a few minutes.
+   ```
+
+   下载需要几分钟时间。如果您怀疑下载已挂起，请点击**“取消”**，然后重新开始安装。
+
+7. 单机  **Add SDK to PATH**
+
+   成功后，将显示通知：
+
+   ```
+   The Flutter SDK was added to your PATH
+   ```
+
+8. 当提示 **Which Flutter template?** 时，请忽略它。按 <kbd>Esc</kbd> 。您可以在检查开发设置后创建测试项目。
+
+9. 为确保 Flutter 在所有终端中可用：
+
+   - 关闭，然后重新打开所有终端窗口。
+   - 重新启动 VS Code。
+
+步骤：`启动 Visual Studio Code ` → `CMD(CTR) + SHIFT + P`  → `Flutter:New Project` → `Application`  → `Select Folder` → `Enter Project Name`
 
 ## 2. 配置环境变量
 
@@ -65,83 +103,143 @@ Tools • Dart 3.9.0 • DevTools 2.48.0
 
 ## 3. 配置Android Studio
 
+@See https://docs.flutter.dev/platform-integration/android/setup
+
 ### 3.1. 安装
 
-下载地址：https://developer.android.com/studio/#downloads
+下载地址：https://developer.android.com/studio?hl=zh-cn
 
 > 提示：首次安装 Android studio 提示 *Android Studio First Run \ Unable to access Android SDK add-on list* 解决方案：
 >
-> 1. 选择 「Setup proxy」
-> 2. 选择 「Manual proxy configuration」- 「HTTP」
+> 1. 选择 **Setup proxy**
+> 2. 选择 **Manual proxy configuration**- **HTTP**
 >    - Host name：**mirrors.neusoft.edu.cn**
 >    - Port number：**80**
-> 3. 选择「Check connection」
+> 3. 选择 **Check connection**
 > 4. 提示 *Connection successful* 配置成功
 
-### 3.2. 安装 Android Studio 必要组件
+### 3.2. 安装 Android Studio SDK 和工具
 
-@See https://docs.flutter.cn/get-started/install/macos/mobile-android#configure-android-development
+1. 启动 **Android Studio**
 
-操作步骤：⚙️ Settings — Languages & Frameworks — Android SDK
+2. 打开 **SDK Manager** 设置对话框
 
-确保安装如下组件：
+   - 如果 “**Welcome to Android Studio**” 对话框已打开，单击 **More Actions** 按钮，然后从下拉菜单中单击 “**SDK Manager**”。
+   - 如果您已打开项目，请转至 **Tools** > **SDK Manager**。
 
-- Android SDK Platform, API 35.0.1
-- Android SDK Command-line Tools
-- Android SDK Build-Tools
-- Android SDK Platform-Tools
-- Android Emulator
+3. 如果 **SDK Platforms** 选项卡未打开，请切换到该选项卡。
 
-接下来在配置文件里添加如下代码：（可删除的内容）
+4. 验证是否已选择 **API Level** 为 **36** 的第一个条目。
 
-```ini
-# android
-export ANDROID_HOME=$HOME/Library/Android/sdk 
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$ANDROID_HOME/emulator
-```
+   如果 **Status** 列显示 **Update available** 或者 **Not installed**：
 
-### 3.3. 安装插件
+   - 选中当前行
+   - 点击 **Apply**
+   - 当显示确认更改框时，点击确认，等待安装
+   - 安装完成之后点击 **Finis h**
+
+5. 切换到 **SDK Tools** 选项卡
+
+6. 验证是否已选择以下 SDK 工具
+
+   - **Android SDK Build-Tools**
+   - **Android SDK Command-line Tools**
+   - **Android Emulator**
+   - **Android SDK Platform-Tools**
+
+7. 如果有更改，和第4步一致，点击 **Apply** 安装，等待安装完成之后点击 **Finish** 即可。
+
+### 3.3. 同意 Android 许可
+
+1. 打开终端
+
+2. 运行以下命令来审查并签署 SDK 许可证
+
+   ```shell
+   $ flutter doctor --android-licenses
+   ```
+
+3. 阅读并接受任何必要的许可。
+
+   如果您之前没有接受过每个 SDK 许可证，则需要在开发 Android 之前查看并同意这些许可证。
+
+   在同意每个许可的条款之前，请仔细阅读每个条款。
+
+   成功接受所有必要的许可证后，您应该会看到类似以下内容的输出：
+
+   ```
+   All SDK package licenses accepted.
+   ```
+
+### 3.4. 安装插件
 
 快捷键  `cmd + ,`  打开设置，选择 `Plugins`，搜索安装 `Flutter` 插件。
 
-签署许可证协议
+### 3.5. 设置安卓设备
+
+@See https://docs.flutter.dev/platform-integration/android/setup#set-up-devices
+
+查看设备：
 
 ```shell
-flutter doctor --android-licenses
+$ flutter emulators && flutter devices
 ```
-
-输入项一路按 `y` 即可
 
 ## 4. 配置 Xcode
 
-1）在 appStore 搜索 Xcode 安装即可
+### 4.1. 安装
 
-2）使用以下命令来将开发者目录指向你完整的 Xcode 安装路径（通常在 /Applications/Xcode.app）：
+[请安装并设置最新版本的 Xcode](https://developer.apple.com/xcode/)
 
-```bash
-sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-```
+### 4.2. 设置 Xcode 命令行工具
 
-3）签署 Xcode 许可证协议
+要配置 Xcode 命令行工具以使用您安装的 Xcode 版本，请在您首选的终端中运行以下命令：
 
 ```bash
-sudo xcodebuild -license
+$ sudo sh -c 'xcode-select -s /Applications/Xcode.app/Contents/Developer && xcodebuild -runFirstLaunch'
 ```
 
-4）安装 cocoapods
+如果您在其他地方下载了 Xcode 或需要使用其他版本，请将其替换`/Applications/Xcode.app`为那里的路径。
+
+### 4.3. 签署 Xcode 许可证协议
+
+设置 Xcode 并配置其命令行工具后，请同意 Xcode 许可证。
 
 ```bash
-brew install cocoapods
+$ sudo xcodebuild -license
 ```
+
+### 4.4. 下载必备工具
+
+下载 iOS 平台支持和最新的 iOS 模拟器运行
+
+```shell
+$ xcodebuild -downloadPlatform iOS
+```
+
+### 4.5. 安装 Rosetta
+
+如果您在[Apple Silicon](https://support.apple.com/en-us/116943) (ARM) Mac 上进行开发，[请安装 Rosetta 2](https://support.apple.com/en-us/102527)：
+
+```shell
+$ sudo softwareupdate --install-rosetta --agree-to-license
+```
+
+### 4.6. 安装 CocoaPods
+
+```shell
+$ brew install cocoapods
+$ pod --version
+1.16.2
+```
+
+### 4.7. 设置苹果设备
+
+@See https://docs.flutter.dev/platform-integration/ios/setup#set-up-devices
 
 ## 5. 配置 VSCode
 
 下载安装：https://code.visualstudio.com/
-
-打开VSCode，快捷键 `CMD` + `SHIFT` + `X` 打开拓展程序，搜索并安装 Dart/Flutter 插件。然后再次执行 `flutter doctor` 指令，配置完毕！
 
 ## 6. 检查环境
 
@@ -154,16 +252,16 @@ $ flutter doctor
 此命令检查您的环境并向终端窗口显示报告。
 
 ```shell
-flutter doctor
+$ flutter doctor
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, 3.24.2, on macOS 14.6.1 23G93 darwin-arm64, locale
+[✓] Flutter (Channel stable, 3.35.6, on macOS 26.0 25A354 darwin-arm64, locale
     zh-Hans-CN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 35.0.0)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
+[✓] Android toolchain - develop for Android devices (Android SDK version 36.1.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 26.0.1)
 [✓] Chrome - develop for the web
-[✓] Android Studio (version 2024.1)
-[✓] VS Code (version 1.93.0)
-[✓] Connected device (3 available)
+[✓] Android Studio (version 2025.1)
+[✓] VS Code (version 1.105.1)
+[✓] Connected device (2 available)
 [✓] Network resources
 
 • No issues found!
@@ -203,8 +301,6 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 1）定位到 `Android Studio` 工具栏
 
-
-
 2）在 `Target selector` 中，选择一个运行该应用的 Android 设备，如果没有列出可用，请选择 `AVD Manager` 并创建一个（参照后文：创建模拟器）。
 
 3）点击 `run`，运行程序。
@@ -237,55 +333,47 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 下载安装 [Visual Studio Code >>](https://code.visualstudio.com/)
 
-### 2. 安装插件
-
-- `Flutter`： 支持Flutter开发工作流 (运行、调试、热重载等)
-- `Dart`：提供代码分析 (输入代码时进行验证、代码补全等)
-
-步骤：`启动 Visual Studio Code `  → `快捷键：CMD(CTR) + SHIFT + X` → `搜索并安装插件` → `重启 Visual Studio Code`
-
-> **！提示**：安装 `Flutter` 插件时会自动安装 `Dart` 插件。
-
-### 3. 创建项目
-
-## 2. 安装插件
+### 2. 将 Flutter 扩展添加到 VS Code
 
 快捷键： <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>
 
-装插件：`flutter`
+搜插件：[`flutter`](https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter)
 
 > **！提示**：安装 `Flutter` 插件时会自动安装 `Dart` 插件。
 
-## 3. 安装 SDK
+# 创建项目
 
-1. 要打开**命令面板** ，请按 <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
+1. 打开 VS Code
 
-2. 在**命令面板**中，键入 `flutter`
-3. 选择 `Flutter：New Project`
-4. VS Code 会提示你在计算机上找到 Flutter SDK
-   - 如果你安装了 Flutter SDK，请单击 **Locate SD**
-   - 如果没有安装 Flutter SDK，请单击**下载 SDK**（推荐安装位置：`~/development`，如果没有这个目录可以手动创建）
-5. 当提示“ **哪个 Flutter 模板？”** 时，请忽略它。按 <kbd>Esc</kbd> 。您可以在检查开发设置后创建测试项目。
+2. 快捷键  <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 打开命令面板，输入 flutter
 
-步骤：`启动 Visual Studio Code ` → `CMD(CTR) + SHIFT + P`  → `Flutter:New Project` → `Application`  → `Select Folder` → `Enter Project Name`
+3. 选择 Flutter:New Project
 
-### 4. 配置模拟器
+4. 选择 **Application** 模板
 
-#### 4.1. Android
+5. 创建或选择新应用程序文件夹的父目录
 
-**步骤**：`CMD(CTR) + SHIFT + P`  → `Flutter:Select Device` → `+ Create Android emulator` 
+   应该会出现一个文件对话框。
 
-如果提示： *No suitable Android AVD system images are available. You may need to install these using sdkmanager, for example: sdkmanager "system-images;android-27;google_apis_playstore;x86"*
+   - 选择或创建您想要创建项目的父目录。
+   - 要确认您的选择，请单击 **Select a folder to create the project in**
 
-在 `Android Studio` 中创建虚拟设备(模拟器) → 重复上次步骤 → 选择设备，耐心等待启动...
+6. 输入您的应用程序的名称
 
-#### 4.2. iOS
+7. 等待项目初始化完成
 
-**Tips**：coming soon...
+8. 打开`lib`目录，然后`main.dart`打开文件。
 
-#### 5. 运行项目
+# 启动项目
 
-终端输入：`flutter run`
+虽然 Flutter 应用程序可以在许多平台上运行，但请尝试在 Web 上运行您的新应用程序。
+
+1. 在 VS Code 中打开命令面板  <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 
+2. 在命令面板中，开始输入`flutter:` 
+3. 选择  **Select Device** 命令，然后选择 **Chrome**
+4. 运行或开始调试您的应用程序
+
+> 提示：或者可以使用命令 `flutter run`
 
 # 通用目录结构
 
@@ -309,47 +397,3 @@ nodejs
 ├── pubspec.lock（项目依赖锁定信息，相当于npm中的 package-lock.json）
 └── pubspec.yaml（项目依赖配置，相当于npm中的 package.json）
 ```
-
-# 创建项目
-
-1、在终端输入如下指令创建项目
-
-```shell
-$ flutter create --empty <project-name>
-$ cd <project-name> && code .
-$ flutter run
-```
-
-> 提示：
->
-> - `--empty` 标记会导致无法在 `lib/main.dart` 文件中创建标准计数器应用。
-> - 如果是正式开发，建议使用 Android studio 创建项目，然后再使用 vscode 来开发。
-
-2、目录解构如下
-
-```
-<project-name>
-├── android （android平台相关代码）
-├── assets （静态资源）
-│   ├── images
-│   └── fonts
-├── ios （ios平台相关代码）
-├── lib（flutter 相关代码，我们编写的代码就在这个文件夹）
-│   ├── entities（实体）
-│   ├── generated（生成的静态资源）
-│   ├── model（数据层）
-│   ├── view（视图层）
-│   ├── viewmodel
-│   ├── routes（路由映射）
-│   ├── utils（工具类）
-│   │   ├── constants.dart
-│   │   └── http.dart 
-│   ├── widgets（全局组件）
-│   ├── app.dart（根组件）
-│   └── main.dart（入口文件：相当于index.js）
-├── analysis_options.yaml （分析 dart 语法的文件，老项目升级新项目有报错可删除）
-├── pubspec.lock（项目依赖锁定信息）
-└── pubspec.yaml（项目依赖配置）
-```
-
-3、
