@@ -28,7 +28,7 @@
 $ unzip ~/Downloads/flutter_macos_arm64_3.35.1-stable.zip -d ~/development/
 ```
 
-### 使用 VS Code 安装（推荐）
+### 使用 VS Code 安装
 
 1. 打开命令面板 ，请按 <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>
 
@@ -69,6 +69,139 @@ $ unzip ~/Downloads/flutter_macos_arm64_3.35.1-stable.zip -d ~/development/
    - 重新启动 VS Code。
 
 步骤：`启动 Visual Studio Code ` → `CMD(CTR) + SHIFT + P`  → `Flutter:New Project` → `Application`  → `Select Folder` → `Enter Project Name`
+
+### FVM（推荐）
+
+FVM（Flutter Version Manager）是一款 Flutter SDK 版本管理工具，可让不同项目使用不同版本，避免冲突。类似于 nvm 管理 Node.js。
+
+使用它可以：
+
+- 多个项目共存不同 Flutter 版本
+- 快速切换 Flutter 渠道（stable / beta / dev）
+- 避免全局升级引发的兼容问题
+
+#### 安装 FVM
+
+```shell
+$ brew tap leoafarias/fvm
+$ brew install fvm
+```
+
+#### 配置环境变量
+
+仅首次安装
+
+安装后，确保 fvm 命令可在终端中直接使用：
+
+```shell
+$ fvm --version
+```
+
+若提示找不到命令，需将 Dart 的 global bin 路径加入环境变量（仅 pub 安装时需要）：
+
+编辑 `~/.zshrc` 或 `~/.bashrc`：
+
+```
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+```
+
+保存后执行：
+
+```shell
+$ source ~/.zshrc
+```
+
+#### 设置全局
+
+```shell
+$ fvm install stable
+$ fvm global stable
+```
+
+#### 常用命令
+
+| **命令**             | **说明**                  | **示例**         |
+| -------------------- | ------------------------- | ---------------- |
+| `fvm releases`       | 查看所有可用 Flutter 版本 | —                |
+| `fvm install stable` | 安装最新稳定版            | ✅ 推荐           |
+| `fvm install 3.24.0` | 安装指定版本              | —                |
+| `fvm use stable`     | 当前项目使用指定版本      | 在项目根目录执行 |
+| `fvm flutter doctor` | 使用 FVM 的 Flutter 命令  | 确认配置         |
+| `fvm list`           | 查看已安装的 Flutter 版本 | —                |
+| `fvm remove 3.19.0`  | 删除指定版本              | —                |
+
+#### VS Code 识别 FVM Flutter SDK
+
+1. 打开项目文件夹
+
+2. 在命令面板  <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 输入：Preferences: Open Settings (JSON)
+
+3. 添加以下配置（或修改原有 Flutter SDK 路径）：
+
+   ```
+   {
+     "dart.flutterSdkPath": ".fvm/flutter_sdk"
+   }
+   ```
+
+   > ⚠️ 注意：.fvm/flutter_sdk 是 FVM 为项目生成的 Flutter 软链接目录。每个项目的 .fvm 文件夹会指向该项目使用的 Flutter 版本。
+
+#### 运行命令
+
+使用 FVM 时，所有 Flutter 命令前加 fvm：
+
+```shell
+$ fvm flutter doctor
+$ fvm flutter pub get
+$ fvm flutter run
+```
+
+如果你希望在命令行直接用 flutter 而不是 fvm flutter，可添加一个 alias：
+
+```shell
+alias flutter="fvm flutter"
+```
+
+保存到 ~/.zshrc 后：
+
+```shell
+$ source ~/.zshrc
+```
+
+#### 升级 FVM 与 Flutter 版本
+
+1. 升级 FVM：
+
+   ```shell
+   $ brew upgrade fvm
+   ```
+
+2. 升级 Flutter 版本：
+
+   ```shell
+   $ fvm install stable --force
+   $ fvm use stable
+   ```
+
+#### **常见目录说明**
+
+| **路径**         | **说明**                   |
+| ---------------- | -------------------------- |
+| ~/.fvm/versions/ | 所有已安装的 Flutter 版本  |
+| .fvm/flutter_sdk | 项目软链接（指向具体版本） |
+| fvm_config.json  | 项目版本配置文件           |
+
+#### 最佳实践建议
+
+- 每个项目独立版本，互不干扰。
+- 不要直接修改 .fvm/flutter_sdk，它是自动生成的软链接。
+- 团队协作时，将 .fvm/fvm_config.json 提交到 Git，**但排除** **.fvm/flutter_sdk**。
+
+`.gitignore` 示例
+
+```
+.fvm/flutter_sdk
+```
 
 ## 2. 配置环境变量
 
@@ -342,6 +475,8 @@ Doctor summary (to see all details, run flutter doctor -v):
 > **！提示**：安装 `Flutter` 插件时会自动安装 `Dart` 插件。
 
 # 创建项目
+
+## 1. 使用 VS Code
 
 1. 打开 VS Code
 
