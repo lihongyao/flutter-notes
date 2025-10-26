@@ -99,7 +99,7 @@ $ fvm --version
 
 若提示找不到命令，需将 Dart 的 global bin 路径加入环境变量（仅 pub 安装时需要）：
 
-编辑 `~/.zshrc` 或 `~/.bashrc`：
+编辑 `~/.zshrc` 
 
 ```
 export PATH="$PATH":"$HOME/.pub-cache/bin"
@@ -109,13 +109,6 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 ```shell
 $ source ~/.zshrc
-```
-
-#### 设置全局
-
-```shell
-$ fvm install stable
-$ fvm global stable
 ```
 
 #### 常用命令
@@ -129,6 +122,77 @@ $ fvm global stable
 | `fvm flutter doctor` | 使用 FVM 的 Flutter 命令  | 确认配置         |
 | `fvm list`           | 查看已安装的 Flutter 版本 | —                |
 | `fvm remove 3.19.0`  | 删除指定版本              | —                |
+
+#### 安装 Flutter SDK
+
+安装最新稳定版本，然后查看已安装列表：
+
+```shell
+$ fvm install stable
+```
+
+接下来我们可以将其挂在到 **Global** 上。
+
+```shell
+$ fvm global stable
+```
+
+然后我们执行 `fvm list` 查看 SDK 列表，如果你的 **Flutter Version**  提示  Need setup，不用着急，这说明 **FVM 已经有 stable 版本缓存，但它还没完成链接或初始化**。
+
+稍后我们可以通过一些 flutter 指令来触发初始化，如查看 flutter 版本：
+
+```shell
+$ fvm flutter --version
+Downloading Darwin arm64 Dart SDK from Flutter engine 035316565ad77281a75305515e4682e6c4c6f7ca...
+```
+
+接下来我们再次执行 fvm list 即可查看到正确的sdk版本了。
+
+```shell
+$ fvm list
+Cache directory:  /xxx/xxx/fvm/versions
+Directory Size: 803.05 MB
+
+┌─────────┬─────────┬─────────────────┬──────────────┬──────────────┬────────┬───────┐
+│ Version │ Channel │ Flutter Version │ Dart Version │ Release Date │ Global │ Local │
+├─────────┼─────────┼─────────────────┼──────────────┼──────────────┼────────┼───────┤
+│ stable  │ stable  │ 3.35.7          │ 3.9.2        │ Oct 23, 2025 │ ●      │       │
+└─────────┴─────────┴─────────────────┴──────────────┴──────────────┴────────┴───────┘
+```
+
+#### 配置指令别名
+
+现在，我们使用 fvm 管理 flutter sdk 的时候，所有和 flutter 相关的指令我们都需要在前面加上 fvm 前缀，如：
+
+```shell
+$ fvm flutter doctor
+$ fvm flutter pub get
+$ fvm flutter run
+```
+
+如果你希望在命令行直接用 flutter 而不是 fvm flutter，可添加一个 alias。
+
+请将下面的配置，添加到环境变量配置文件  ~/.zshrc 中：
+
+```
+alias flutter="fvm flutter"
+```
+
+然后刷新环境变量：
+
+```shell
+$ source ~/.zshrc
+```
+
+再次执行 `flutter --version` 你将能看到正确的版本：
+
+```shell
+$ flutter --version
+Flutter 3.35.7 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision adc9010625 (5 days ago) • 2025-10-21 14:16:03 -0400
+Engine • hash 6b24e1b529bc46df7ff397667502719a2a8b6b72 (revision 035316565a) (5 days ago) • 2025-10-21 14:28:01.000Z
+Tools • Dart 3.9.2 • DevTools 2.48.0
+```
 
 #### VS Code 识别 FVM Flutter SDK
 
@@ -145,28 +209,6 @@ $ fvm global stable
    ```
 
    > ⚠️ 注意：.fvm/flutter_sdk 是 FVM 为项目生成的 Flutter 软链接目录。每个项目的 .fvm 文件夹会指向该项目使用的 Flutter 版本。
-
-#### 运行命令
-
-使用 FVM 时，所有 Flutter 命令前加 fvm：
-
-```shell
-$ fvm flutter doctor
-$ fvm flutter pub get
-$ fvm flutter run
-```
-
-如果你希望在命令行直接用 flutter 而不是 fvm flutter，可添加一个 alias：
-
-```shell
-alias flutter="fvm flutter"
-```
-
-保存到 ~/.zshrc 后：
-
-```shell
-$ source ~/.zshrc
-```
 
 #### 升级 FVM 与 Flutter 版本
 
@@ -205,7 +247,9 @@ $ source ~/.zshrc
 
 ## 2. 配置环境变量
 
-在终端输入 `vi ~/.bash_profile`，按 <kbd>i</kbd> 进入编辑模式，添加如下代码：
+> **提示**：如果你使用 FVM 管理 flutter，通常不需要配置环境变量，只需要设置国内镜像即可。
+
+在终端输入 `vi ~/.zshrc`，按 <kbd>i</kbd> 进入编辑模式，添加如下代码：
 
 ```ini
 # Flutter_国内镜像 
@@ -220,7 +264,7 @@ export PATH=$PATH:$FLUTTER
 按住 <kbd>Esc</kbd>，输入 <kbd>wq!</kbd> 保存并退出，然后刷新配置文件：
 
 ```shell
-$ source ~/.bash_profile 
+$ source ~/.zshrc
 ```
 
 验证结果：
@@ -508,7 +552,10 @@ Doctor summary (to see all details, run flutter doctor -v):
 3. 选择  **Select Device** 命令，然后选择 **Chrome**
 4. 运行或开始调试您的应用程序
 
-> 提示：或者可以使用命令 `flutter run`
+> 提示：
+>
+> 1. 可以使用命令 `flutter run`
+> 2. 在开发过程中，如果需要启动热更新，你可以在编辑代码保存之后按键盘 <kbd>r</kbd>。
 
 # 通用目录结构
 
